@@ -1,9 +1,27 @@
+# Python virtual environment
 venv/
+
+# Python cache and compiled files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.log
+*.py[cod]
+*$py.class
+
+# Environment and secret configuration
 .env
+.env.*
+.env.local
+
+# Local database files
+*.sqlite3
+*.sqlite
+*.db
+
+# Logs
+*.log
+
+# IDE/editor settings
 .idea/
 .vscode/
+*.swp
+*~
+.DS_Store
