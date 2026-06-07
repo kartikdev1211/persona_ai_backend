@@ -4,11 +4,15 @@ from app.db.database import engine, Base
 import app.models
 from app.core.security import hash_password
 from app.api.v1.routes.auth import router as auth_router
+from app.api.v1.routes.assessment import router as assessment_router
+from app.api.v1.routes.persona import router as persona_router
 app = FastAPI(
     title="PersonaAI Backend",
     version="1.0.0"
 )
 app.include_router(auth_router)
+app.include_router(assessment_router)
+app.include_router(persona_router)
 Base.metadata.create_all(bind=engine)
 
 @app.get("/")
