@@ -13,27 +13,29 @@ from app.schemas.persona import PersonaSetupRequest
 from app.schemas.persona import PersonaSetupResponse
 from app.schemas.persona import PersonaStatusResponse
 
-router=APIRouter(
+router = APIRouter(
     prefix="/persona",
     tags=['Persona'],
 )
+
+
 @router.post(
     "/setup",
     response_model=PersonaSetupResponse,
     status_code=status.HTTP_201_CREATED,
 )
 def setup_persona(
-    payload:PersonaSetupRequest,
+    payload: PersonaSetupRequest,
     current_user: User = Depends(get_current_user),
-    db:Session=Depends(get_db),
+    db: Session = Depends(get_db),
 ):
-    existing_profile=(
+    existing_profile = (
         db.query(PersonaProfile)
-        .filter(PersonaProfile.user_id==current_user.id)
-        .filter()
+        .filter(PersonaProfile.user_id == current_user.id)
+        .first()
     )
     if existing_profile:
-        existing_profile.persona_name=payload.persona_name
+        existing_profile.persona_name = payload.persona_name
         existing_profile.avatar_index = payload.avatar_index
         existing_profile.confidence_level = payload.confidence_level
         existing_profile.focus_goal = payload.focus_goal
@@ -43,7 +45,8 @@ def setup_persona(
             message="Persona updated successfully",
             persona_setup_completed=True
         )
-    persona_profile=PersonaProfile(
+
+    persona_profile = PersonaProfile(
         user_id=current_user.id,
         persona_name=payload.persona_name,
         avatar_index=payload.avatar_index,
@@ -55,20 +58,25 @@ def setup_persona(
     db.refresh(persona_profile)
 
     return PersonaSetupResponse(
-        message="Persona setup completed successfuly",
+        message="Persona setup completed successfully",
         persona_setup_completed=True
     )
 
-@router.get("/status",response_model=PersonaSetupResponse)
-def persona_setup(current_user:User=Depends(get_current_user),db: Session=Depends(get_db)):
-    persona=(
+
+@router.get("/status", response_model=PersonaSetupResponse)
+def persona_setup(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    persona = (
         db.query(PersonaProfile)
-        .filter(PersonaProfile.user_id==current_user.id)
+        .filter(PersonaProfile.user_id == current_user.id)
         .first()
     )
     return PersonaSetupResponse(
         persona_setup_completed=persona is not None
     )
+
 
 @router.get(
     "/me",
