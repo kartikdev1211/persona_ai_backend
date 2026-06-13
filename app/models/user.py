@@ -15,7 +15,9 @@ class User(Base):
     hashed_password=Column(String, nullable=False)
     is_active=Column(
         Boolean,
-        default=True
+        default=True,
+        nullable=False,
     )
+    notifications_enabled=Column(Boolean, default=True,nullable=False)
     created_at=Column(DateTime(timezone=True),server_default=func.now())
     updated_at=Column(DateTime(timezone=True),server_default=func.now(),onupdate=func.now())

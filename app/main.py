@@ -7,6 +7,8 @@ from app.api.v1.routes.auth import router as auth_router
 from app.api.v1.routes.assessment import router as assessment_router
 from app.api.v1.routes.persona import router as persona_router
 from app.api.v1.routes.persona_report import router as persona_report_router
+from app.api.v1.routes.profile import router as profile_router
+
 app = FastAPI(
     title="PersonaAI Backend",
     version="1.0.0"
@@ -15,6 +17,8 @@ app.include_router(auth_router)
 app.include_router(assessment_router)
 app.include_router(persona_router)
 app.include_router(persona_report_router)
+app.include_router(profile_router)
+
 Base.metadata.create_all(bind=engine)
 
 @app.get("/")
