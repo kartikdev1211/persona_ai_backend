@@ -18,7 +18,7 @@ class AssessmentResponse(BaseModel):
 
 class AssessmentStatusResponse(BaseModel):
     assessment_completed: bool
-    is_persona_completed: bool
+    is_persona_setup_completed: bool
     is_report_generated: bool
 
 class AssessmentSubmitResponse(BaseModel):
