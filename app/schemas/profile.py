@@ -10,7 +10,7 @@ class LevelInfo(BaseModel):
 
 class ProfileResponse(BaseModel):
     full_name: str
-    avatar_index: int
+    avatar_url: str | None = None
     confidence_score: int
     notifications_enabled: bool
     level: int

@@ -37,7 +37,7 @@ def get_profile_data(user_id: int, db: Session) -> dict:
         .filter(PersonaProfile.user_id == user_id)
         .first()
     )
-    avatar_index = persona.avatar_index if persona else 0
+    avatar_url = persona.avatar_url if persona else None
 
     report = (
         db.query(PersonaReport)
@@ -66,7 +66,7 @@ def get_profile_data(user_id: int, db: Session) -> dict:
     achievement_list = [a.achievement_name for a in achievements]
 
     return {
-        "avatar_index": avatar_index,
+        "avatar_url": avatar_url,
         "confidence_score": confidence_score,
         "xp": xp,
         "level": level,

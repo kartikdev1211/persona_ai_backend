@@ -20,11 +20,10 @@ class PersonaProfile(Base):
 
     persona_name = Column(String(30), nullable=False)
 
-    avatar_index = Column(
-        Integer,
-        nullable=False,
+    avatar_url=Column(
+        String,
+        nullable=True,
     )
-
     confidence_level = Column(
         String,
         nullable=False,

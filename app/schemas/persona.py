@@ -22,7 +22,7 @@ VALID_FOCUS_GOALS = {
 
 class PersonaSetupRequest(BaseModel):
     persona_name: str
-    avatar_index: int
+    avatar_url: str | None = None
     confidence_level: str
     focus_goal: str
 
@@ -39,15 +39,6 @@ class PersonaSetupRequest(BaseModel):
         if not re.fullmatch(r"^[A-Za-z ]+$", value):
             raise ValueError(
                 "Persona name can contain only letters and spaces"
-            )
-
-        return value
-    @field_validator("avatar_index")
-    @classmethod
-    def validate_avatar_index(cls, value: int) -> int:
-        if value < 0 or value > 8:
-            raise ValueError(
-                "Avatar index must be between 0 and 8"
             )
 
         return value
@@ -70,7 +61,7 @@ class PersonaSetupRequest(BaseModel):
 
 class PersonaResponse(BaseModel):
     persona_name: str
-    avatar_index: int
+    avatar_url: str | None = None
     confidence_level: str
     focus_goal: str
 
@@ -86,3 +77,6 @@ class PersonaStatusResponse(BaseModel):
 class PersonaSetupResponse(BaseModel):
     message: str
     persona_setup_completed: bool
+
+class AvatarUploadResponse(BaseModel):
+    avatar_url: str
